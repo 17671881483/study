@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+   
+    function fn(s, l, i) {
+        //此方法只返回以 l，i 为回文数中点字符串
+        //偶数回文数 l === i
+        //奇数回文数 l === i+1
+        // l：左边界  i：右边界
+        while (l >= 0 && i < s.length && s[l] === s[i]) {
+            l--
+            i++
+        }
+        return s.substr(l + 1, i - l - 1)
+        // l+1 i-l-1原因
+        //由于最后一此循环符合 while 条件，所有会有一次多的l-- i++ 所以在这里抵消掉
+        //举例
+        //  l  i  return    while 
+        //  3  3     4      true
+        //  2  4    343     true
+        //  1  5   23432    true
+        //  0  6  1234321   true
+        // -1  7     2      false  *在这里才结束 while 循环，所以在返回值应该抵消这一次 l，i 的运算，l+1，i-1。这里 s.substr(l, i - l + 1) ==> s.substr(l+1, (i-1) - (l+1) + 1) === s.substr(l + 1, i - l - 1)*
+        // 如果觉得这里麻烦可以换一种写法
+        // function fn(s, l, i) {
+        //     let res = ''
+        //     while (l >= 0 && i < s.length && s[l] === s[i]) {
+        //         res = s.substr(l,i-l+1)
+        //         l--
+        //         i++
+        //     }
+        //     return res
+        // }
+    }
+
+    function fn1(s) {
+        let res = ''
+        for (let i = 0; i < s.length; i++) {
+            //基数回文数 中点为 i   例子：12321 --- 这里的 i 指向 3 => i === 2
+            let s1 = fn(s, i, i)
+            //偶数回文数 中点为 l,i  例子：123321 --- 这里的 l 指向 2 号位的3，i 指向 3 号位的 3 => l === 2; i === l + 1
+            let s2 = fn(s, i, i + 1)
+            // 写 s1，s2 是保证这个回文数不管是奇数还是偶数都能获取到
+            res = res.length > s1.length ? res : s1
+            res = res.length > s2.length ? res : s2
+            console.log('s1', s1);
+            console.log('s2', s2);
+            console.log('res', res);
+            console.log('i', i);
+            console.log('----------');
+        }
+        return res
+    }
+
+
+    console.log(fn1('12343212'));
+
+</script>
+
+</html>
