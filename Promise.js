@@ -2,8 +2,8 @@ const PENDING = 'pending'
 const FULFILLED = 'fulfilled'
 const REJECTED = 'rejected'
 
-class Promise{
-    constructor(onFulfilled,onRejected){
-        
+class Promise {
+    constructor(onFulfilled, onRejected) {
+
     }
 }
